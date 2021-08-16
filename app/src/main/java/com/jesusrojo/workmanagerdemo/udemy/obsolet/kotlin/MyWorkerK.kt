@@ -1,13 +1,13 @@
-package com.jesusrojo.workmanagerdemo
+package com.jesusrojo.workmanagerdemo.udemy.obsolet.kotlin
 
 import android.content.Context
 import android.util.Log
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import androidx.work.Worker
-import com.jesusrojo.workmanagerdemo.obsolet.java.MainActivityJ
+import com.jesusrojo.workmanagerdemo.udemy.obsolet.java.MainActivityJ
 
-class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
+class MyWorkerK(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
 
     override fun doWork(): Result {
         val data = inputData

@@ -1,12 +1,10 @@
-package com.jesusrojo.workmanagerdemo
+package com.jesusrojo.workmanagerdemo.simpleexample
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
 import android.os.Bundle
-import android.view.View
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.work.*
+import com.jesusrojo.workmanagerdemo.R
 
 //https://developer.android.com/topic/libraries/architecture/workmanager/basics#groovy
 

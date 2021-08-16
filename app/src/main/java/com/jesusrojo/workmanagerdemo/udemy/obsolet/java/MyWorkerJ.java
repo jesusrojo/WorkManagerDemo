@@ -1,4 +1,4 @@
-package com.jesusrojo.workmanagerdemo.obsolet.java;
+package com.jesusrojo.workmanagerdemo.udemy.obsolet.java;
 
 import android.content.Context;
 import android.util.Log;

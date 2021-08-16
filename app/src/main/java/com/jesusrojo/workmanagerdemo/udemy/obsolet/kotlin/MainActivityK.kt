@@ -1,4 +1,4 @@
-package com.jesusrojo.workmanagerdemo.obsolet.kotlin
+package com.jesusrojo.workmanagerdemo.udemy.obsolet.kotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
