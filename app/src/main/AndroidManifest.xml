@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkManagerDemo">
         <activity
-            android:name=".kotlin.MainActivity"
+            android:name="com.jesusrojo.workmanagerdemo.obsolet.kotlin.MainActivityK"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

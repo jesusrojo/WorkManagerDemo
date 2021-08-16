@@ -1,4 +1,4 @@
-package com.jesusrojo.workmanagerdemo.java;
+package com.jesusrojo.workmanagerdemo.obsolet.java;
 
 import android.os.Bundle;
 import android.view.View;
