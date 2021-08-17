@@ -10,9 +10,7 @@ import com.jesusrojo.workmanagerdemo.databinding.ActivityBlurBinding
 class BlurActivity : AppCompatActivity() {
 
     private val viewModel: BlurViewModel by viewModels {
-        BlurViewModel.BlurViewModelFactory(
-            application
-        )
+        BlurViewModel.BlurViewModelFactory(application)
     }
     private lateinit var binding: ActivityBlurBinding
 
