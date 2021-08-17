@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jesusrojo.workmanagerdemo.codelab
+package com.jesusrojo.workmanagerdemo.codelab1
 
 import android.app.Application
 import android.content.ContentResolver
@@ -25,12 +25,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.work.*
 import com.jesusrojo.workmanagerdemo.R
-import com.jesusrojo.workmanagerdemo.codelab.workers.BlurWorker
-import com.jesusrojo.workmanagerdemo.codelab.workers.CleanupWorker
-import com.jesusrojo.workmanagerdemo.codelab.workers.SaveImageToFileWorker
+import com.jesusrojo.workmanagerdemo.codelab1.workers.BlurWorker
+import com.jesusrojo.workmanagerdemo.codelab1.workers.CleanupWorker
+import com.jesusrojo.workmanagerdemo.codelab1.workers.SaveImageToFileWorker
 
 
-class BlurViewModel(application: Application) : ViewModel() {
+class BlurViewModel1(application: Application) : ViewModel() {
 
     internal var imageUri: Uri? = null
     internal var outputUri: Uri? = null
@@ -153,11 +153,11 @@ class BlurViewModel(application: Application) : ViewModel() {
         outputUri = uriOrNull(outputImageUri)
     }
 
-    class BlurViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
+    class BlurViewModelFactory1(private val application: Application) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return if (modelClass.isAssignableFrom(BlurViewModel::class.java)) {
-                BlurViewModel(application) as T
+            return if (modelClass.isAssignableFrom(BlurViewModel1::class.java)) {
+                BlurViewModel1(application) as T
             } else {
                 throw IllegalArgumentException("Unknown ViewModel class")
             }

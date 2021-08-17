@@ -1,4 +1,4 @@
-package com.jesusrojo.workmanagerdemo.codelab
+package com.jesusrojo.workmanagerdemo.codelab1
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,10 @@ import androidx.work.WorkInfo
 import com.jesusrojo.workmanagerdemo.R
 import com.jesusrojo.workmanagerdemo.databinding.ActivityBlurBinding
 
-class BlurActivity : AppCompatActivity() {
+class BlurActivity1 : AppCompatActivity() {
 
-    private val viewModel: BlurViewModel by viewModels {
-        BlurViewModel.BlurViewModelFactory(application)
+    private val viewModel1: BlurViewModel1 by viewModels {
+        BlurViewModel1.BlurViewModelFactory1(application)
     }
     private lateinit var binding: ActivityBlurBinding
 
@@ -22,14 +22,14 @@ class BlurActivity : AppCompatActivity() {
         binding = ActivityBlurBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.goButton.setOnClickListener { viewModel.applyBlur(blurLevel) }
+        binding.goButton.setOnClickListener { viewModel1.applyBlur(blurLevel) }
 
         // Observe work status, added in onCreate()
-        viewModel.outputWorkInfos.observe(this, workInfosObserver())
+        viewModel1.outputWorkInfos.observe(this, workInfosObserver())
 
         //STEP 9 Setup view output image file button
         binding.seeFileButton.setOnClickListener {
-            viewModel.outputUri?.let { currentUri ->
+            viewModel1.outputUri?.let { currentUri ->
                 val actionView = Intent(Intent.ACTION_VIEW, currentUri)
                 actionView.resolveActivity(packageManager)?.run {
                     startActivity(actionView)
@@ -37,7 +37,7 @@ class BlurActivity : AppCompatActivity() {
             }
 
         }
-        binding.cancelButton.setOnClickListener { viewModel.cancelWork() }
+        binding.cancelButton.setOnClickListener { viewModel1.cancelWork() }
     }
 
     private fun workInfosObserver(): Observer<List<WorkInfo>> {
@@ -65,7 +65,7 @@ class BlurActivity : AppCompatActivity() {
 
                 // If there is an output file show "See File" button
                 if (!outputImageUri.isNullOrEmpty()) {
-                    viewModel.setOutputUri(outputImageUri)
+                    viewModel1.setOutputUri(outputImageUri)
                     binding.seeFileButton.visibility = View.VISIBLE
                 }
             } else {

@@ -1,11 +1,11 @@
-package com.jesusrojo.workmanagerdemo.example1.actualize
+package com.jesusrojo.workmanagerdemo.exampleold.actualize
 
 import android.content.Context
 import android.util.Log
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import androidx.work.Worker
-import com.jesusrojo.workmanagerdemo.example1.obsolet.java.MainActivityJ
+import com.jesusrojo.workmanagerdemo.exampleold.obsolet.java.MainActivityJ
 
 class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
 

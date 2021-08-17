@@ -1,28 +1,27 @@
-package com.jesusrojo.workmanagerdemo.codelab.workers
+package com.jesusrojo.workmanagerdemo.codelab2.workers
 
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
 import androidx.work.workDataOf
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.jesusrojo.workmanagerdemo.codelab.KEY_IMAGE_URI
+import com.jesusrojo.workmanagerdemo.codelab2.KEY_IMAGE_URI
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import timber.log.Timber
 
 /**
  * Saves the image to a permanent file
  */
-private const val TAG = "SaveImageToFileWorker"
 class SaveImageToFileWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
-    private val title = "Blurred Image"
+    private val Title = "Blurred Image"
     private val dateFormatter = SimpleDateFormat(
-        "yyyy.MM.dd 'at' HH:mm:ss z",
-        Locale.getDefault()
+            "yyyy.MM.dd 'at' HH:mm:ss z",
+            Locale.getDefault()
     )
 
     override fun doWork(): Result {
@@ -35,19 +34,19 @@ class SaveImageToFileWorker(ctx: Context, params: WorkerParameters) : Worker(ctx
         return try {
             val resourceUri = inputData.getString(KEY_IMAGE_URI)
             val bitmap = BitmapFactory.decodeStream(
-                resolver.openInputStream(Uri.parse(resourceUri)))
+                    resolver.openInputStream(Uri.parse(resourceUri)))
             val imageUrl = MediaStore.Images.Media.insertImage(
-                resolver, bitmap, title, dateFormatter.format(Date()))
+                    resolver, bitmap, Title, dateFormatter.format(Date()))
             if (!imageUrl.isNullOrEmpty()) {
                 val output = workDataOf(KEY_IMAGE_URI to imageUrl)
 
                 Result.success(output)
             } else {
-                Log.e(TAG, "Writing to MediaStore failed")
+                Timber.e("Writing to MediaStore failed")
                 Result.failure()
             }
         } catch (exception: Exception) {
-            exception.printStackTrace()
+            Timber.e(exception)
             Result.failure()
         }
     }

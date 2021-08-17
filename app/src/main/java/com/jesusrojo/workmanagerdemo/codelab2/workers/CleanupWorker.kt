@@ -1,16 +1,15 @@
-package com.jesusrojo.workmanagerdemo.codelab.workers
+package com.jesusrojo.workmanagerdemo.codelab2.workers
 
 import android.content.Context
-import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.jesusrojo.workmanagerdemo.codelab.OUTPUT_PATH
+import com.jesusrojo.workmanagerdemo.codelab2.OUTPUT_PATH
 import java.io.File
+import timber.log.Timber
 
 /**
  * Cleans up temporary files generated during blurring process
  */
-private const val TAG = "CleanupWorker"
 class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
     override fun doWork(): Result {
@@ -28,14 +27,14 @@ class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params
                         val name = entry.name
                         if (name.isNotEmpty() && name.endsWith(".png")) {
                             val deleted = entry.delete()
-                            Log.i(TAG, "Deleted $name - $deleted")
+                            Timber.i("Deleted $name - $deleted")
                         }
                     }
                 }
             }
             Result.success()
         } catch (exception: Exception) {
-            exception.printStackTrace()
+            Timber.e(exception)
             Result.failure()
         }
     }

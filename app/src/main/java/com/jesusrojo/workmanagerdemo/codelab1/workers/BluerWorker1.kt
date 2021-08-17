@@ -1,4 +1,4 @@
-package com.jesusrojo.workmanagerdemo.codelab.workers
+package com.jesusrojo.workmanagerdemo.codelab1.workers
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -8,8 +8,7 @@ import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import com.jesusrojo.workmanagerdemo.R
-import com.jesusrojo.workmanagerdemo.codelab.KEY_IMAGE_URI
+import com.jesusrojo.workmanagerdemo.codelab1.KEY_IMAGE_URI
 
 private const val TAG = "BlurWorker"
 class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {

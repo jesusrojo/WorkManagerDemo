@@ -1,4 +1,4 @@
-package com.jesusrojo.workmanagerdemo.example1.obsolet.kotlin
+package com.jesusrojo.workmanagerdemo.exampleold.actualize
 
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
@@ -11,7 +11,7 @@ import androidx.work.WorkManager
 import android.widget.Toast
 import androidx.work.Data
 
-class MainActivityK : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private var textView: TextView? = null
     private var oneTimeWorkRequest: OneTimeWorkRequest? = null
@@ -25,6 +25,15 @@ class MainActivityK : AppCompatActivity() {
         observeWorkManager(oneTimeWorkRequest!!)
     }
 
+    private fun getOneTimeWorkRequest(): OneTimeWorkRequest {
+        val data = Data.Builder()
+            .putInt(KEY_COUNT_VALUE, 1750)
+            .build()
+        return OneTimeWorkRequest.Builder(MyWorker::class.java)
+            .setInputData(data)
+            .build()
+    }
+
     private fun initUi() {
         textView = findViewById(R.id.tvStatus)
         val fab = findViewById<View>(R.id.fab) as FloatingActionButton
@@ -34,25 +43,16 @@ class MainActivityK : AppCompatActivity() {
         }
     }
 
-    private fun getOneTimeWorkRequest(): OneTimeWorkRequest {
-        val data = Data.Builder()
-            .putInt(KEY_COUNT_VALUE, 1750)
-            .build()
-        return OneTimeWorkRequest.Builder(MyWorkerK::class.java)
-            .setInputData(data)
-            .build()
-    }
-
     private fun observeWorkManager(oneTimeWorkRequest: OneTimeWorkRequest) {
         appendTV("observeWorkManager")
-        WorkManager.getInstance().getWorkInfoByIdLiveData(oneTimeWorkRequest.id)
+        WorkManager.getInstance(applicationContext).getWorkInfoByIdLiveData(oneTimeWorkRequest.id)
             .observe(this, { workInfo ->
                 if (workInfo != null) {
                     appendTV("onChanged ${workInfo.state.name}")
 
                     if (workInfo.state.isFinished) {
                         val outputData = workInfo.outputData
-                        val message = outputData.getString(MyWorkerK.KEY_WORKER)
+                        val message = outputData.getString(MyWorker.KEY_WORKER)
 
                         Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
                         appendTV(message)
@@ -66,7 +66,7 @@ class MainActivityK : AppCompatActivity() {
     }
 
     private fun startWorkManager(oneTimeWorkRequest: OneTimeWorkRequest?) {
-        WorkManager.getInstance().enqueue(oneTimeWorkRequest!!)
+        WorkManager.getInstance(applicationContext).enqueue(oneTimeWorkRequest!!)
     }
 
     companion object {
