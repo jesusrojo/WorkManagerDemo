@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -12,8 +13,17 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        renderscriptTargetApi 11
+        renderscriptSupportModeEnabled true
+        vectorDrawables {
+            useSupportLibrary true
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // The following argument makes the Android Test Orchestrator run its
+        // "pm clear" command after each test invocation. This command ensures
+        // that the app's state is completely cleared between tests.
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+
     }
 
     buildTypes {
@@ -28,6 +38,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    viewBinding {
+        enabled = true
     }
 }
 
@@ -50,4 +63,7 @@ dependencies {
     implementation "androidx.work:work-multiprocess:$work_version"// Multiprocess support
     // TEST WORK MANAGER
     androidTestImplementation("androidx.work:work-testing:$work_version")
+
+    implementation "androidx.activity:activity-ktx:1.2.4"
+   // implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 }

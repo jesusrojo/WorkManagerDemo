@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".udemy.obsolet.java.MainActivityJ">
+    tools:context=".example1.obsolet.java.MainActivityJ">
 
     <TextView
         android:id="@+id/tvStatus"
