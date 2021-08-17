@@ -30,7 +30,18 @@
             android:authorities="${applicationId}.workmanager-init"
             tools:node="remove" />
 
+        <!--https://stackoverflow.com/questions/55875198/illegalstateexception-workmanager-is-already-initialized-->
+        <!-- disable default provider -->
+<!--        <provider-->
+<!--            android:name="androidx.work.impl.WorkManagerInitializer"-->
+<!--            android:authorities="${applicationId}.workmanager-init"-->
+<!--            android:exported="false"-->
+<!--            android:enabled="false"/>-->
 
+        <!-- register custom provider -->
+        <provider
+            android:name=".codelab2.CustomWorkManagerInitializer"
+            android:authorities="${applicationId}.WorkManagerInit"/>
     </application>
 
 </manifest>
