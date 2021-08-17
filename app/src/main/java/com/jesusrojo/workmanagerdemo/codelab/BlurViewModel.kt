@@ -20,12 +20,10 @@ import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.work.*
 import com.jesusrojo.workmanagerdemo.R
 import com.jesusrojo.workmanagerdemo.codelab.workers.BlurWorker
 import com.jesusrojo.workmanagerdemo.codelab.workers.CleanupWorker
@@ -38,18 +36,37 @@ class BlurViewModel(application: Application) : ViewModel() {
     internal var outputUri: Uri? = null
     private val workManager = WorkManager.getInstance(application)
 
+    // New instance variable for the WorkInfo
+    internal val outputWorkInfos: LiveData<List<WorkInfo>> //STEP 8
+
     init {
         imageUri = getImageUri(application.applicationContext)
+        // This transformation makes sure that whenever the current work Id changes the WorkInfo
+        // the UI is listening to changes
+        outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
+
     }
+    internal fun cancelWork() {
+        workManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME)
+    }
+
     /**
      * Create the WorkRequest to apply the blur and save the resulting image
      * @param blurLevel The amount to blur the image
      */
     internal fun applyBlur(blurLevel: Int) {
-        // Add WorkRequest to Cleanup temporary images
         var continuation = workManager
-            .beginWith(OneTimeWorkRequest
-                .from(CleanupWorker::class.java))
+            .beginUniqueWork(
+                IMAGE_MANIPULATION_WORK_NAME,
+                ExistingWorkPolicy.REPLACE,
+                OneTimeWorkRequest.from(CleanupWorker::class.java)
+            )
+
+        //STEP 7 COMMENTED
+        // Add WorkRequest to Cleanup temporary images
+//        var continuation = workManager
+//            .beginWith(OneTimeWorkRequest
+//                .from(CleanupWorker::class.java))
 
         // Add WorkRequests to blur the image the number of times requested
         for (i in 0 until blurLevel) {
@@ -70,8 +87,18 @@ class BlurViewModel(application: Application) : ViewModel() {
 //            .build()
 //        continuation = continuation.then(blurRequest)
 
+        //For Blur-O-Matic, you'll use the constraint that the device must be charging.
+        // This means that your work request will only run if the device is charging.
+        // Create charging constraint // ADDED STEP 11
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(true)
+            .build()
+
         // Add WorkRequest to save the image to the filesystem
-        val save = OneTimeWorkRequest.Builder(SaveImageToFileWorker::class.java).build()
+        val save = OneTimeWorkRequest.Builder(SaveImageToFileWorker::class.java)
+            .setConstraints(constraints) // ADDED STEP 11
+            .addTag(TAG_OUTPUT) // STEP 8
+            .build()
 
         continuation = continuation.then(save)
 
