@@ -1,6 +1,6 @@
 #### WorkManagerDemo
 
-Playground project to learn the[Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/basics)
+Playground project to learn the [Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager/basics)
 
 
 The app contains examples from:
