@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jesusrojo.workmanagerdemo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -9,15 +14,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkManagerDemo">
-        <activity
-            android:name="com.jesusrojo.workmanagerdemo.codelab.BlurActivity"
+
+        <activity android:name=".codelab2.SelectImageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".codelab2.BlurActivity" />
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove" />
+
+        <!--https://stackoverflow.com/questions/55875198/illegalstateexception-workmanager-is-already-initialized-->
+        <!-- disable default provider -->
+<!--        <provider-->
+<!--            android:name="androidx.work.impl.WorkManagerInitializer"-->
+<!--            android:authorities="${applicationId}.workmanager-init"-->
+<!--            android:exported="false"-->
+<!--            android:enabled="false"/>-->
+
+        <!-- register custom provider -->
+        <provider
+            android:name=".codelab2.CustomWorkManagerInitializer"
+            android:authorities="${applicationId}.WorkManagerInit"/>
     </application>
 
 </manifest>
